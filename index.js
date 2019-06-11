@@ -28,6 +28,11 @@ const getProjectName = () => {
   return inquirer.prompt(questions);
 };
 
+const createDirectory = dirname => {
+  shell.mkdir(dirname);
+  shell.cd(dirname);
+}
+
 const run = async () => {
   // Show script introduction
   init();
@@ -38,6 +43,7 @@ const run = async () => {
   } = projectName;
   // Create new directory
   // CD into new directory
+  createDirectory(PROJECT_NAME);
 };
 
 run();
