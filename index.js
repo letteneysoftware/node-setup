@@ -19,12 +19,23 @@ const init = () => {
   );
 };
 
-const getProjectName = () => {
+const getParams = () => {
   const questions = [{
-    name: 'PROJECT_NAME',
-    type: 'INPUT',
-    message: 'What is the name of your project?'
-  }]
+      name: 'PROJECT_NAME',
+      type: 'input',
+      message: 'What is the name of your project?'
+    },
+    {
+      name: 'DEPENDENCIES',
+      type: 'input',
+      message: 'What dependencies should your project have?'
+    },
+    {
+      name: 'DEV_DEPENDENCIES',
+      type: 'input',
+      message: 'What dev dependencies should your project have?'
+    }
+  ]
   return inquirer.prompt(questions);
 };
 
@@ -51,20 +62,30 @@ const createServer = () => {
   }
 };
 
+const npmInit = async (deps, devDeps) => {
+  await shell.exec('npm init -y');
+  if (deps) await shell.exec(`npm i -s ${deps}`);
+  if (devDeps) await shell.exec(`npm i --save-dev ${devDeps}`);
+};
+
 const run = async () => {
   // Show script introduction
   init();
-  // Collect project name
-  const projectName = await getProjectName();
+  // Collect project parameters
+  const params = await getParams();
   const {
-    PROJECT_NAME
-  } = projectName;
+    PROJECT_NAME,
+    DEPENDENCIES,
+    DEV_DEPENDENCIES
+  } = params;
   // Create new directory
   // CD into new directory
   createDirectory(PROJECT_NAME);
   // Create new server.js file
   // Populate said server with boilerplate
   createServer();
+  // NPM Init
+  npmInit(DEPENDENCIES, DEV_DEPENDENCIES);
 };
 
 run();
