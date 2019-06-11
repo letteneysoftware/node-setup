@@ -19,10 +19,23 @@ const init = () => {
   );
 };
 
+const getProjectName = () => {
+  const questions = [{
+    name: 'PROJECT_NAME',
+    type: 'INPUT',
+    message: 'What is the name of your project?'
+  }]
+  return inquirer.prompt(questions);
+};
+
 const run = async () => {
   // Show script introduction
   init();
   // Collect project name
+  const projectName = await getProjectName();
+  const {
+    PROJECT_NAME
+  } = projectName;
   // Create new directory
   // CD into new directory
 };
