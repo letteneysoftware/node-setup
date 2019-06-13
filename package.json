@@ -1,6 +1,6 @@
 {
   "name": "node-setup",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -11,7 +11,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ."
+    "start": "node .",
+    "postinstall": "npm link"
   },
   "author": "",
   "license": "ISC",
