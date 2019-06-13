@@ -16,6 +16,6 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "create-node-setup": "./index.js"
+    "create-node-app": "./index.js"
   }
 }

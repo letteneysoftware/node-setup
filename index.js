@@ -64,8 +64,8 @@ const createServer = () => {
 
 const npmInit = async (deps, devDeps) => {
   await shell.exec('npm init -y');
-  if (deps) await shell.exec(`npm i -s ${deps}`);
-  if (devDeps) await shell.exec(`npm i --save-dev ${devDeps}`);
+  await shell.exec(`npm i -s express ${deps}`);
+  if (devDeps) await shell.exec(`npm i -D ${devDeps}`);
 };
 
 const run = async () => {
