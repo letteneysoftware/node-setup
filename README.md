@@ -4,7 +4,7 @@
 
 ## Overview
 
-A simple cli for creating a basic NodeJS project. Standard dependency is Express.
+A simple cli for creating a basic NodeJS project. Standard dependencies are Express and Dotenv.
 
 ## Instructions
 
@@ -19,3 +19,7 @@ A simple cli for creating a basic NodeJS project. Standard dependency is Express
 - `npm link`
 
 **Afterwards you are free to move to any directory and run `create-node-app`.**
+
+## Bugs
+
+- If you find a bug, please let me know at `https://github.com/letteneysoftware/node-setup`.
