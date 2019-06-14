@@ -1,7 +1,7 @@
 {
   "name": "node-setup",
-  "version": "1.0.2",
-  "description": "",
+  "version": "1.0.4",
+  "description": "A simple cli for creating a basic NodeJS project. Standard dependencies are Express and Dotenv.",
   "main": "index.js",
   "dependencies": {
     "chalk": "^2.4.2",
@@ -11,8 +11,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node .",
-    "postinstall": "npm link"
+    "start": "node ."
   },
   "author": "",
   "license": "ISC",
