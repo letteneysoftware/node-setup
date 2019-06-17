@@ -24,6 +24,12 @@ const init = () => {
 
 const getParams = () => {
   const questions = [{
+      name: 'PROJECT_TYPE',
+      type: 'list',
+      message: 'What type of project?',
+      choices: ['node', 'ejs']
+    },
+    {
       name: 'PROJECT_NAME',
       type: 'input',
       message: 'What is the name of your project?'
