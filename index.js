@@ -60,16 +60,17 @@ const run = async () => {
   // Collect project parameters
   const params = await getParams();
   const {
+    PROJECT_TYPE,
     PROJECT_NAME,
     DEPENDENCIES,
     DEV_DEPENDENCIES
   } = params;
   // Create new directory
   // CD into new directory
-  createDirectory(PROJECT_NAME);
+  await createDirectory(PROJECT_TYPE, PROJECT_NAME);
   // Create new server.js file
   // Populate said server with boilerplate
-  createServer();
+  await createServer();
   // NPM Init
   npmInit(DEPENDENCIES, DEV_DEPENDENCIES);
 };
