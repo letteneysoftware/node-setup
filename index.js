@@ -70,7 +70,7 @@ const run = async () => {
   await createDirectory(PROJECT_TYPE, PROJECT_NAME);
   // Create new server.js file
   // Populate said server with boilerplate
-  await createServer();
+  await createServer(PROJECT_TYPE);
   // NPM Init
   npmInit(DEPENDENCIES, DEV_DEPENDENCIES);
 };
