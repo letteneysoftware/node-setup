@@ -18,8 +18,8 @@ const createServer = type => {
   switch (type) {
     case 'ejs':
       const ejsLines = [
-        'app.set(\'view engine\', \'ejs\');',
-        'app.use(express.static(\'./public\'));',
+        'app.set(\'view engine\', \'ejs\');\n',
+        'app.use(express.static(\'./public\'));\n',
       ];
       lines.splice(lines.length - 1, 0, ...ejsLines);
     default:

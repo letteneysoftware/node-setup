@@ -48,9 +48,9 @@ const getParams = () => {
   return inquirer.prompt(questions);
 };
 
-const npmInit = async (deps, devDeps) => {
+const npmInit = async (type, deps, devDeps) => {
   await shell.exec('npm init -y');
-  await shell.exec(`npm i -s express dotenv ${deps}`);
+  await shell.exec(`npm i -s express dotenv ${type === 'ejs' ? 'ejs' : ''} ${deps}`);
   if (devDeps) await shell.exec(`npm i -D ${devDeps}`);
 };
 
@@ -72,7 +72,7 @@ const run = async () => {
   // Populate said server with boilerplate
   await createServer(PROJECT_TYPE);
   // NPM Init
-  npmInit(DEPENDENCIES, DEV_DEPENDENCIES);
+  npmInit(PROJECT_TYPE, DEPENDENCIES, DEV_DEPENDENCIES);
 };
 
 run();
