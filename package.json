@@ -1,7 +1,7 @@
 {
   "name": "node-setup",
-  "version": "1.0.5",
-  "description": "A cli for creating a basic NodeJS project. Standard dependencies are Express and Dotenv.",
+  "version": "2.0.0",
+  "description": "A cli for creating either a basic NodeJS project, or an EJS/NodeJS project. Standard dependencies are Express and Dotenv.",
   "main": "index.js",
   "dependencies": {
     "chalk": "^2.4.2",
