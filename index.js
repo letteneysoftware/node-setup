@@ -8,7 +8,8 @@ const figlet = require('figlet');
 const shell = require('shelljs');
 
 const createDirectory = require('./file-system/createDirectory'),
-  createServer = require('./file-system/createServer');
+  createServer = require('./file-system/createServer'),
+  createFiles = require('./file-system/createFiles');
 
 const init = () => {
   console.log(
@@ -24,26 +25,26 @@ const init = () => {
 
 const getParams = () => {
   const questions = [{
-      name: 'PROJECT_TYPE',
-      type: 'list',
-      message: 'What type of project?',
-      choices: ['node', 'ejs']
-    },
-    {
-      name: 'PROJECT_NAME',
-      type: 'input',
-      message: 'What is the name of your project?'
-    },
-    {
-      name: 'DEPENDENCIES',
-      type: 'input',
-      message: 'What dependencies should your project have?'
-    },
-    {
-      name: 'DEV_DEPENDENCIES',
-      type: 'input',
-      message: 'What dev dependencies should your project have?'
-    }
+    name: 'PROJECT_TYPE',
+    type: 'list',
+    message: 'What type of project?',
+    choices: ['node', 'ejs']
+  },
+  {
+    name: 'PROJECT_NAME',
+    type: 'input',
+    message: 'What is the name of your project?'
+  },
+  {
+    name: 'DEPENDENCIES',
+    type: 'input',
+    message: 'What dependencies should your project have?'
+  },
+  {
+    name: 'DEV_DEPENDENCIES',
+    type: 'input',
+    message: 'What dev dependencies should your project have?'
+  }
   ]
   return inquirer.prompt(questions);
 };
@@ -71,8 +72,10 @@ const run = async () => {
   // Create new server.js file
   // Populate said server with boilerplate
   await createServer(PROJECT_TYPE);
+  // Create the appropriate additional files
+  await createFiles(PROJECT_TYPE);
   // NPM Init
-  npmInit(PROJECT_TYPE, DEPENDENCIES, DEV_DEPENDENCIES);
+  await npmInit(PROJECT_TYPE, DEPENDENCIES, DEV_DEPENDENCIES);
 };
 
 run();
