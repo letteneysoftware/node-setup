@@ -8,7 +8,8 @@ const figlet = require('figlet');
 const shell = require('shelljs');
 
 const createDirectory = require('./file-system/createDirectory'),
-  createServer = require('./file-system/createServer');
+  createServer = require('./file-system/createServer'),
+  createFiles = require('./file-system/createFiles');
 
 const init = () => {
   console.log(
@@ -24,27 +25,33 @@ const init = () => {
 
 const getParams = () => {
   const questions = [{
-      name: 'PROJECT_NAME',
-      type: 'input',
-      message: 'What is the name of your project?'
-    },
-    {
-      name: 'DEPENDENCIES',
-      type: 'input',
-      message: 'What dependencies should your project have?'
-    },
-    {
-      name: 'DEV_DEPENDENCIES',
-      type: 'input',
-      message: 'What dev dependencies should your project have?'
-    }
+    name: 'PROJECT_TYPE',
+    type: 'list',
+    message: 'What type of project?',
+    choices: ['node', 'ejs']
+  },
+  {
+    name: 'PROJECT_NAME',
+    type: 'input',
+    message: 'What is the name of your project?'
+  },
+  {
+    name: 'DEPENDENCIES',
+    type: 'input',
+    message: 'What dependencies should your project have?'
+  },
+  {
+    name: 'DEV_DEPENDENCIES',
+    type: 'input',
+    message: 'What dev dependencies should your project have?'
+  }
   ]
   return inquirer.prompt(questions);
 };
 
-const npmInit = async (deps, devDeps) => {
+const npmInit = async (type, deps, devDeps) => {
   await shell.exec('npm init -y');
-  await shell.exec(`npm i -s express dotenv ${deps}`);
+  await shell.exec(`npm i -s express dotenv ${type === 'ejs' ? 'ejs' : ''} ${deps}`);
   if (devDeps) await shell.exec(`npm i -D ${devDeps}`);
 };
 
@@ -54,18 +61,21 @@ const run = async () => {
   // Collect project parameters
   const params = await getParams();
   const {
+    PROJECT_TYPE,
     PROJECT_NAME,
     DEPENDENCIES,
     DEV_DEPENDENCIES
   } = params;
   // Create new directory
   // CD into new directory
-  createDirectory(PROJECT_NAME);
+  await createDirectory(PROJECT_TYPE, PROJECT_NAME);
   // Create new server.js file
   // Populate said server with boilerplate
-  createServer();
+  await createServer(PROJECT_TYPE);
+  // Create the appropriate additional files
+  await createFiles(PROJECT_TYPE);
   // NPM Init
-  npmInit(DEPENDENCIES, DEV_DEPENDENCIES);
+  await npmInit(PROJECT_TYPE, DEPENDENCIES, DEV_DEPENDENCIES);
 };
 
 run();

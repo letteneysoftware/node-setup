@@ -2,7 +2,7 @@
 
 const shell = require('shelljs');
 
-const createServer = () => {
+const createServer = type => {
   const server = 'server.js';
   shell.touch(server);
   let lines = [
@@ -13,8 +13,21 @@ const createServer = () => {
     'const PORT = process.env.PORT || 3000;\n',
     'app.use(express.urlencoded({ extended: true }));\n',
     'app.listen(PORT, () => console.log(`Listening on ${PORT}`));\n\n'
-  ].map(line => new shell.ShellString(line));
+  ];
+
+  switch (type) {
+    case 'ejs':
+      const ejsLines = [
+        'app.set(\'view engine\', \'ejs\');\n',
+        'app.use(express.static(\'./public\'));\n',
+      ];
+      lines.splice(lines.length - 1, 0, ...ejsLines);
+    default:
+      break;
+  }
+
   for (let line of lines) {
+    line = new shell.ShellString(line);
     line.toEnd(server);
   }
 };
