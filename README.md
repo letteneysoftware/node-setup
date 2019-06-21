@@ -4,7 +4,7 @@
 
 ## Overview
 
-A cli for creating a basic NodeJS project. Standard dependencies are Express and Dotenv.
+A cli for creating either a basic NodeJS project, or an EJS/NodeJS project. Standard dependencies are Express and Dotenv.
 
 ## Instructions
 
